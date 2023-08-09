@@ -9,10 +9,12 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from forms import CreateBlogPostForm, RegistrationForm, LoginForm, CommentForm
+import os
 
 # Create flask app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY")
+print(app.config['SECRET_KEY'])
 # Configure CKEditor
 ckeditor = CKEditor(app)
 # Configure Bootstrap5
@@ -36,7 +38,9 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 # Connect to Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_LOCATION").strip("[]'")
+#print(os.environ.get("DATABASE_LOCATION").strip("[]"))
+
 database = SQLAlchemy()
 database.init_app(app)
 
