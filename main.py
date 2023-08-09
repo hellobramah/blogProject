@@ -38,7 +38,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 # Connect to Database
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_LOCATION").strip("[]'")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_LOCATION")
 
 #print(os.environ.get("DATABASE_LOCATION").strip("[]"))
 
